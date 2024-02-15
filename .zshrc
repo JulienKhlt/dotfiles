@@ -176,3 +176,6 @@ export JZ_PATH_MEDSAM=/gpfswork/rech/wzq/umb39ck/medsam
 export PYTHONBREAKPOINT=ipdb.set_trace
 
 export NCCL_P2P_DISABLE=1
+export HYDRA_FULL_ERROR=1
+
+eval "$(zoxide init --cmd cd zsh)"
