@@ -71,6 +71,16 @@ local plugins = {
     opts={},
   },
   {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = "VeryLazy",
+    opts = {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+    }
+  },
+  {
     "chaoren/vim-wordmotion",
     lazy = false,
   },
@@ -90,14 +100,10 @@ local plugins = {
        leap.add_default_mappings(true)
        vim.keymap.del({ "x", "o" }, "x")
        vim.keymap.del({ "x", "o" }, "X")
-      leap.user.set_repeat_keys('<cr>', '<bs>', {
-        -- False by default. If set to true, the keys will work like the
-        -- native semicolon/comma, i.e., forward/backward is understood in
-        -- relation to the last motion.
+       require("leap").add_repeat_mappings(";", ",", {
         relative_directions = true,
-        -- By default, all modes are included.
-        modes = {'n', 'x', 'o'},
-      })
+        modes = { "n", "x", "o" },
+       })
      end,
   },
   { "tpope/vim-repeat", event = "VeryLazy" },
