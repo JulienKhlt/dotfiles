@@ -6,6 +6,8 @@ M.general = {
     ["<C-l>"] = { "<cmd> TmuxNavigateRight<CR>", "window right"},
     ["<C-j>"] = { "<cmd> TmuxNavigateDown<CR>", "window down"},
     ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window up"},
+    ["<C-i>"] = { "zi", "Fold toggle"},
+    ["<C-M>"] = { "zM", "Fold close"},
   }
 }
 
@@ -24,16 +26,6 @@ M.harpoon = {
 
 M.tabufline = {
   plugin = true,
-}
-
-M.test = {
-  n = {
-    ["<C-h>"] = { "<C-w>h", "Window left" },
-    ["<C-l>"] = { "<C-w>l", "Window right" },
-    ["<C-j>"] = { "<C-w>j", "Window down" },
-    ["<C-k>"] = { "<C-w>k", "Windcw up" },
-
-  }
 }
 
 return M
