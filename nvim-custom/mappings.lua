@@ -6,8 +6,8 @@ M.general = {
     ["<C-l>"] = { "<cmd> TmuxNavigateRight<CR>", "window right"},
     ["<C-j>"] = { "<cmd> TmuxNavigateDown<CR>", "window down"},
     ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window up"},
-    ["<C-i>"] = { "zi", "Fold toggle"},
-    ["<C-M>"] = { "zM", "Fold close"},
+    ["<leader>i"] = { "zi", "Fold toggle"},
+    ["<leader>m"] = { "zM", "Fold close"},
   }
 }
 

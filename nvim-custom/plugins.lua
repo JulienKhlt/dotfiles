@@ -23,7 +23,7 @@ local plugins = {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    ft = {"python", "json"},
+    ft = {"python", "json", "typescript"},
     opts = function()
       return require "custom.configs.null-ls"
     end,
@@ -41,6 +41,11 @@ local plugins = {
         "ruff",
         "isort",
         "fixjson",
+        "yaml-language-server",
+        "json-lsp",
+        "typescript-language-server",
+        "prettier",
+        "eslint-lsp",
       },
     },
   },
@@ -128,5 +133,14 @@ local plugins = {
       require "custom.configs.lspconfig"
     end,
   },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function()
+      local opts_nvchad = require "plugins.configs.treesitter"
+      local opts_custom = require "custom.configs.treesitter"
+      return vim.tbl_deep_extend("force", opts_nvchad, opts_custom)
+    end,
+  },
+
 }
 return plugins
