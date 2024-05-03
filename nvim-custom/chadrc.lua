@@ -4,6 +4,7 @@ vim.opt.scrolloff = 8
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
 vim.opt.foldclose = "all"
+vim.g.wordmotion_prefix = '<Leader>'
 
 local M = {}
  M.ui = {
