@@ -19,13 +19,30 @@ M.harpoon = {
     ["<leader>2"] = { "<cmd> lua require('harpoon.ui').nav_file(2)<cr>", "file 2" },
     ["<leader>3"] = { "<cmd> lua require('harpoon.ui').nav_file(3)<cr>", "file 3" },
     ["<leader>4"] = { "<cmd> lua require('harpoon.ui').nav_file(4)<cr>", "file 4" },
-
   },
 
 }
 
 M.tabufline = {
   plugin = true,
+}
+
+M.dap = {
+  plugin = true,
+  n = {
+    ["<leader>db"] = {"<cmd> DapToggleBreakpoint <CR>"}
+  }
+}
+
+M.dap_python = {
+  plugin = true,
+  n = {
+    ["<leader>dpr"] = {
+      function()
+        require('dap-python').test_method()
+      end
+    }
+  }
 }
 
 return M

@@ -179,3 +179,8 @@ export NCCL_P2P_DISABLE=1
 export HYDRA_FULL_ERROR=1
 
 eval "$(zoxide init --cmd cd zsh)"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+export MLFLOW_TRACKING_URI="http://tungsten.local:5000"
