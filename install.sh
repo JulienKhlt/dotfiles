@@ -12,6 +12,7 @@ ln -s dotfiles/.zshrc .zshrc
 ln -s dotfiles/.gitconfig .gitconfig
 ln -s dotfiles/starship.toml .config/starship.toml
 ln -s dotfiles/nvim .config/nvim
+ln -s dotfiles/nushell .config/nushell
 
 # install brew
 curl -sS https://webi.sh/brew | sh
