@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEM_DIR="$CONFIG_DIR/items"
+
+# Load global styles, colors and icons
+source "$CONFIG_DIR/globalstyles.sh"
+
+POPUP_CLICK_SCRIPT="sketchybar --set \$NAME popup.drawing=toggle"
+POPUP_OFF="sketchybar --set \$NAME popup.drawing=off"
+
+# Unload the macOS on screen indicator overlay for volume change
+launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist > /dev/null 2>&1 &
+
+sketchybar --bar "${bar[@]}" --default "${item_defaults[@]}"
+
+# Left
+source "$ITEM_DIR/apple.sh"
+source "$ITEM_DIR/front_app.sh"
+source "$ITEM_DIR/aerospace.sh"
+
+
+# Right
+source "$ITEM_DIR/clock.sh"
+source "$ITEM_DIR/battery.sh"
+source "$ITEM_DIR/wifi.sh"
+source "$ITEM_DIR/volume2.sh"
+source "$ITEM_DIR/keyboard.sh"
+source "$ITEM_DIR/slack.sh"
+# source "$ITEM_DIR/github.sh"
+# source "$ITEM_DIR/mail.sh"
+
+osascript -e 'quit app "Rectangle"'
+defaults write com.knollsoft.Rectangle screenEdgeGapTop -int -10
+# open -a Rectangle
+
+
+sketchybar --hotload on
+sketchybar --update

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+volume_slider=(
+  script="$PLUGIN_DIR/volume.sh"
+  updates=on
+  label.drawing=off
+  icon.drawing=off
+  slider.highlight_color=$HIGHLIGHT
+  slider.background.height=8
+  slider.background.corner_radius=12
+  slider.background.color=$(getcolor white 25)
+  padding_left=0
+  padding_right=0
+)
+
+volume_icon=(
+  script="$PLUGIN_DIR/volume.sh"
+  click_script="$PLUGIN_DIR/volume_click.sh"
+  icon=$VOLUME_100
+  icon.font="$FONT:Regular:14.0"
+  label.drawing=off
+)
+
+sketchybar --add slider volume right              \
+           --set volume "${volume_slider[@]}"     \
+           --subscribe volume volume_change       \
+                              mouse.clicked       \
+                              mouse.entered       \
+                              mouse.exited        \
+                              mouse.exited.global \
+
+sketchybar --add item volume_icon right           \
+           --set volume_icon "${volume_icon[@]}"
+           --subscribe volume volume_change       \

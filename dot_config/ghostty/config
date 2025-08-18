@@ -1,0 +1,11 @@
+theme = catppuccin-mocha
+font-family = Hack Nerd Font Mono
+font-size = 14
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+cursor-invert-fg-bg = true
+font-thicken = true
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+macos-window-shadow = true
