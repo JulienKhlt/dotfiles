@@ -1,0 +1,5 @@
+[metadata]
+name = "my-awesome-channel"
+
+[source]
+command = "aws s3 ls my-bucket"

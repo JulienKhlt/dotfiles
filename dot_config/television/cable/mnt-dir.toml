@@ -1,0 +1,16 @@
+[metadata]
+name = "mnt"
+description = "A channel to select files and directories"
+requirements = ["fd", "bat"]
+
+[source]
+command = [
+  "fd -t d . /mnt/DATAFAST1",
+  "fd -t d . /mnt/DATAFAST2",
+  "fd -t d -H . /mnt/DATAFAST1",
+  "fd -t d -H . /mnt/DATAFAST2",
+]
+
+[preview]
+command = "bat -n --color=always '{}'"
+env = { BAT_THEME = "ansi" }

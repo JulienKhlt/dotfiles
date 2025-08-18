@@ -1,0 +1,47 @@
+[user]
+	email = julien.khlaut@gmail.com
+	name = JulienKhlt
+
+[alias]
+  # Amend into a past commit using fzf
+  # Stage your changes `git add -p`, then run `git autofixup` and choose the target commit
+  autofixup = "!f() { \
+    COMMIT_HASH=$(git log --pretty=oneline | fzf | awk '{print $1}'); \
+    git commit --fixup $COMMIT_HASH; \
+    GIT_SEQUENCE_EDITOR=: git rebase --autostash --autosquash -i $COMMIT_HASH^; \
+    }; f"
+
+; [url "git@github.com:"]
+; 	insteadOf = https://github.com/
+
+[core]
+  pager = delta
+
+[page]
+	diff = delta
+	show = delta
+	log = delta
+	blame = delta
+	reflog = delta
+  merge = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[push]
+   autoSetupRemote = true
+   default = current
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

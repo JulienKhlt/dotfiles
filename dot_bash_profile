@@ -1,0 +1,15 @@
+# This block is for interactive login shells only.
+# It checks if a tty (terminal) is attached.
+if [ -t 0 ]; then
+  # If we're not inside tmux, start it.
+  if [ -z "$TMUX" ]; then
+    exec tmux new-session -A -s workspace
+  fi
+  # If we are inside tmux, or we've just created a new one,
+  # source bashrc for interactive setup.
+  if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+  fi
+fi
+# Any code below this will run for both interactive and non-interactive shells
+# However, you should probably move most things to .bashrc and .bash_aliases.
