@@ -1,17 +1,15 @@
--- ~/.config/nvim/lua/plugins/ty.lua
 return {
   {
     "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require("lspconfig")
+    opts = function(_, opts)
       local configs = require("lspconfig.configs")
       local util = require("lspconfig.util")
 
-      -- Define the server once (prevents redefinition on reload)
+      -- define custom server once
       if not configs.ty then
         configs.ty = {
           default_config = {
-            cmd = { "ty", "server" }, -- needs ty on PATH (Mason or manual)
+            cmd = { "ty", "server" },
             filetypes = { "python" },
             root_dir = function(fname)
               return util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", "requirements.txt", ".git")(fname)
@@ -19,20 +17,32 @@ return {
             end,
             settings = {
               ty = {
-                -- Recommended: let Pyright handle language features;
-                -- Ty adds fast type-check diagnostics.
+                -- Let Pyright handle language features; Ty for fast diagnostics
                 disableLanguageServices = true,
-                diagnosticMode = "workspace", -- or "openFilesOnly"
+                diagnosticMode = "workspace",
               },
             },
           },
         }
       end
 
-      -- Keep Pyright (from LazyVim’s python extra) and add Ty
-      lspconfig.ruff.setup({})
-      lspconfig.pyright.setup({})
-      lspconfig.ty.setup({})
+      opts.servers = opts.servers or {}
+      -- Configure pyright for completions and type checking
+      opts.servers.pyright = vim.tbl_deep_extend("force", opts.servers.pyright or {}, {
+        settings = {
+          python = {
+            analysis = {
+              autoImportCompletions = true,
+              typeCheckingMode = "basic",
+            },
+          },
+        },
+      })
+      opts.servers.ruff = opts.servers.ruff or {}
+
+      -- now add Ty (LazyVim will set it up alongside others)
+      opts.servers.ty = {}
     end,
   },
 }
+

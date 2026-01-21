@@ -13,3 +13,5 @@ if [ -t 0 ]; then
 fi
 # Any code below this will run for both interactive and non-interactive shells
 # However, you should probably move most things to .bashrc and .bash_aliases.
+
+. "$HOME/.atuin/bin/env"

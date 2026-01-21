@@ -17,13 +17,19 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 alias nvim = ~/nvim.appimage
+$env.config.show_banner = false
 
-$env.PATH = $env.PATH ++ ["/usr/local/cuda/bin"]
+
+$env.PATH = [/home/julien.khlaut/] ++ $env.PATH ++ ["/usr/local/cuda/bin", "~/.atuin/bin"]
 $env.LD_LIBRARY_PATH = "/usr/local/cuda/lib64/"
 $env.EDITOR = "nvim"
 
 source ~/.config/nushell/poetry.nu
 source ~/.config/nushell/uv.nu
 $env.config.edit_mode = 'vi'
+$env.config.buffer_editor = "/home/julien.khlaut/nvim.appimage"
+gh config set editor "/home/julien.khlaut/nvim.appimage"
 
+source ~/.local/share/atuin/init.nu
 
+use ~/.config/nushell/scripts/rarm-eval.nu *

@@ -21,11 +21,14 @@ brew install lazygit
 brew install chezmoi
 brew install tldr
 brew install nushell
+brew install gh
 
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 
 chezmoi init https://github.com/JulienKhlt/dotfiles.git
+gh extension install dlvhdr/gh-dash
 
 pipx install poetry
