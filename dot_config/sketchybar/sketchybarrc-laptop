@@ -2,7 +2,7 @@
 
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 ITEM_DIR="$CONFIG_DIR/items"
-
+export GITHUB_REVIEW_TEAMS="raidium-med/curia-review,raidium-med/magritte"
 # Load global styles, colors and icons
 source "$CONFIG_DIR/globalstyles.sh"
 
@@ -27,7 +27,7 @@ source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/volume2.sh"
 source "$ITEM_DIR/keyboard.sh"
 source "$ITEM_DIR/slack.sh"
-# source "$ITEM_DIR/github.sh"
+source "$ITEM_DIR/github.sh"
 # source "$ITEM_DIR/mail.sh"
 
 osascript -e 'quit app "Rectangle"'

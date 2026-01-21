@@ -214,13 +214,15 @@ run = 'layout floating'
     alt-minus = 'resize smart -50'
     alt-equal = 'resize smart +50'
 
-    cmd-ctrl-1 = "exec-and-forget open -a /Applications/sioyek.app"
+    cmd-ctrl-1 = "exec-and-forget open -a /Applications/alphaXiv.app"
     cmd-ctrl-2 = "exec-and-forget open -a /Applications/Arc.app"
     cmd-ctrl-3 = "exec-and-forget open -a /Applications/Ghostty.app"
     cmd-ctrl-4 = "exec-and-forget open -a /Applications/Notion.app"
     cmd-ctrl-5 = "exec-and-forget open -a /Applications/Slack.app"
-    cmd-ctrl-6 = "exec-and-forget open -a /Applications/alphaXiv.app"
-    cmd-ctrl-7 = "exec-and-forget open -a /Applications/Obsidian.app"
+    cmd-ctrl-6 = "exec-and-forget open -a /Applications/Obsidian.app"
+    cmd-ctrl-7 = "exec-and-forget open -a /Applications/sioyek.app"
+    cmd-ctrl-w = "exec-and-forget open -a /Applications/GitHub.app"
+    cmd-ctrl-e = "exec-and-forget open -a /Applications/Google Agenda.app"
   
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
