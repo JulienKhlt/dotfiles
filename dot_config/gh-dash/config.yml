@@ -62,7 +62,7 @@ keybindings:
       command: lazygit -p {{.RepoPath}}
     - key: C
       name: Code Review
-      command: cd {{.RepoPath}} && ~/nvim.appimage -c ":silent Octo pr edit {{.PrNumber}}"
+      command: cd {{.RepoPath}} && nvim -c ":silent Octo pr edit {{.PrNumber}}"
 repoPaths:
   raidium-med/rd: /home/julien.khlaut/rd
 theme:
