@@ -19,7 +19,7 @@ The bootstrap script will:
 
 ```bash
 cd ~/dotfiles && git pull
-~/nix-portable nix run home-manager -- switch --flake .#julien.khlaut
+~/nix-portable nix shell nixpkgs#nix home-manager -c home-manager switch --flake .#julien.khlaut
 ```
 
 ### If you have sudo / regular Nix

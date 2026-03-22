@@ -37,8 +37,12 @@ fi
 mkdir -p "$HOME/.local/state/nix/profiles"
 
 # ── 4. Apply home-manager configuration ────────────────────────────────
+# We use `nix shell` to get both nix and home-manager in PATH,
+# then run home-manager switch from inside that shell.
+# This avoids "nix: command not found" when home-manager calls nix internally.
 echo "==> Running home-manager switch (this may take a while on first run)..."
-"$NIX_PORTABLE" nix run home-manager -- switch --flake ".#${PROFILE}"
+"$NIX_PORTABLE" nix shell nixpkgs#nix home-manager -c \
+  home-manager switch --flake ".#${PROFILE}"
 
 echo ""
 echo "==> Done! Log out and back in (or run 'source ~/.bashrc') to pick up changes."
