@@ -2,34 +2,36 @@
 
 Managed with [Nix](https://nixos.org/) + [home-manager](https://github.com/nix-community/home-manager) (no sudo required).
 
-## Quick Start
-
-### 1. Install Nix (single-user, no sudo)
-
-```bash
-curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
-. ~/.nix-profile/etc/profile.d/nix.sh
-```
-
-### 2. Clone and apply
+## Quick Start (no sudo required)
 
 ```bash
 git clone https://github.com/JulienKhlt/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-
-# Enable flakes (one-time)
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-
-# Apply the configuration (adjust the profile name to match your username)
-nix run home-manager -- switch --flake .#julien.khlaut
+bash bootstrap.sh
 ```
 
-### 3. Subsequent updates
+The bootstrap script will:
+1. Download [nix-portable](https://github.com/DavHau/nix-portable) (no root needed)
+2. Enable Nix flakes
+3. Run `home-manager switch` to apply the configuration
+
+### Subsequent updates
 
 ```bash
+cd ~/dotfiles && git pull
+~/nix-portable nix run home-manager -- switch --flake .#julien.khlaut
+```
+
+### If you have sudo / regular Nix
+
+```bash
+curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
+. ~/.nix-profile/etc/profile.d/nix.sh
+git clone https://github.com/JulienKhlt/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-home-manager switch --flake .#julien.khlaut
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+nix run home-manager -- switch --flake .#julien.khlaut
 ```
 
 ## Profiles
