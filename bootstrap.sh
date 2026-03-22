@@ -33,7 +33,10 @@ if ! grep -q "experimental-features" "$NIX_CONF_DIR/nix.conf" 2>/dev/null; then
   echo "==> Flakes enabled in $NIX_CONF_DIR/nix.conf"
 fi
 
-# ── 3. Apply home-manager configuration ────────────────────────────────
+# ── 3. Create profile directory (nix-portable doesn't create it) ───────
+mkdir -p "$HOME/.local/state/nix/profiles"
+
+# ── 4. Apply home-manager configuration ────────────────────────────────
 echo "==> Running home-manager switch (this may take a while on first run)..."
 "$NIX_PORTABLE" nix run home-manager -- switch --flake ".#${PROFILE}"
 
