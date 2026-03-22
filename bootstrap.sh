@@ -36,13 +36,16 @@ fi
 # ── 3. Create profile directory (nix-portable doesn't create it) ───────
 mkdir -p "$HOME/.local/state/nix/profiles"
 
-# ── 4. Apply home-manager configuration ────────────────────────────────
-# We use `nix shell` to get both nix and home-manager in PATH,
-# then run home-manager switch from inside that shell.
-# This avoids "nix: command not found" when home-manager calls nix internally.
+# ── 4. Make nix-portable available as `nix` in PATH ───────────────────
+# home-manager internally calls `nix`, so we symlink nix-portable as `nix`.
+# nix-portable detects argv[0] and behaves accordingly.
+mkdir -p "$HOME/.local/bin"
+ln -sf "$NIX_PORTABLE" "$HOME/.local/bin/nix"
+export PATH="$HOME/.local/bin:$PATH"
+
+# ── 5. Apply home-manager configuration ────────────────────────────────
 echo "==> Running home-manager switch (this may take a while on first run)..."
-"$NIX_PORTABLE" nix shell nixpkgs#nix home-manager -c \
-  home-manager switch --flake ".#${PROFILE}"
+"$NIX_PORTABLE" nix run home-manager -- switch --flake ".#${PROFILE}"
 
 echo ""
 echo "==> Done! Log out and back in (or run 'source ~/.bashrc') to pick up changes."
