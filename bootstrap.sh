@@ -26,11 +26,15 @@ else
   echo "==> nix-portable already installed"
 fi
 
-# ── 2. Enable flakes ───────────────────────────────────────────────────
+# ── 2. Enable flakes & disable sandbox (proot can't nest sandboxes) ───
 mkdir -p "$NIX_CONF_DIR"
 if ! grep -q "experimental-features" "$NIX_CONF_DIR/nix.conf" 2>/dev/null; then
   echo "experimental-features = nix-command flakes" >> "$NIX_CONF_DIR/nix.conf"
   echo "==> Flakes enabled in $NIX_CONF_DIR/nix.conf"
+fi
+if ! grep -q "^sandbox" "$NIX_CONF_DIR/nix.conf" 2>/dev/null; then
+  echo "sandbox = false" >> "$NIX_CONF_DIR/nix.conf"
+  echo "==> Nix sandbox disabled (nix-portable already provides isolation)"
 fi
 
 # ── 3. Create profile directory (nix-portable doesn't create it) ───────
