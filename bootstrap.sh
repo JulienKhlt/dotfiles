@@ -40,9 +40,7 @@ if ! grep -q "^filter-syscalls" "$NIX_CONF_DIR/nix.conf" 2>/dev/null; then
   echo "filter-syscalls = false" >> "$NIX_CONF_DIR/nix.conf"
 fi
 
-# ── 2b. Prefer bwrap; harden proot fallback ──────────────────────────
-# bwrap handles store paths correctly; proot needs SECCOMP disabled.
-export NP_RUNTIME=${NP_RUNTIME:-bwrap}
+# ── 2b. Harden proot (bwrap unavailable on machines without sudo) ─────
 export PROOT_NO_SECCOMP=1
 
 # ── 3. Create profile directory (nix-portable doesn't create it) ───────
