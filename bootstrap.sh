@@ -26,7 +26,7 @@ else
   echo "==> nix-portable already installed"
 fi
 
-# ── 2. Enable flakes & disable sandbox (proot can't nest sandboxes) ───
+# ── 2. Configure nix for nix-portable ─────────────────────────────────
 mkdir -p "$NIX_CONF_DIR"
 if ! grep -q "experimental-features" "$NIX_CONF_DIR/nix.conf" 2>/dev/null; then
   echo "experimental-features = nix-command flakes" >> "$NIX_CONF_DIR/nix.conf"
@@ -36,6 +36,14 @@ if ! grep -q "^sandbox" "$NIX_CONF_DIR/nix.conf" 2>/dev/null; then
   echo "sandbox = false" >> "$NIX_CONF_DIR/nix.conf"
   echo "==> Nix sandbox disabled (nix-portable already provides isolation)"
 fi
+if ! grep -q "^filter-syscalls" "$NIX_CONF_DIR/nix.conf" 2>/dev/null; then
+  echo "filter-syscalls = false" >> "$NIX_CONF_DIR/nix.conf"
+fi
+
+# ── 2b. Prefer bwrap; harden proot fallback ──────────────────────────
+# bwrap handles store paths correctly; proot needs SECCOMP disabled.
+export NP_RUNTIME=${NP_RUNTIME:-bwrap}
+export PROOT_NO_SECCOMP=1
 
 # ── 3. Create profile directory (nix-portable doesn't create it) ───────
 mkdir -p "$HOME/.local/state/nix/profiles"
@@ -49,7 +57,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # ── 5. Apply home-manager configuration ────────────────────────────────
 echo "==> Running home-manager switch (this may take a while on first run)..."
-"$NIX_PORTABLE" nix run home-manager -- switch --flake ".#${PROFILE}"
+# Use path:. to avoid git+file:// fetching (proot can't stat store copies)
+"$NIX_PORTABLE" nix run home-manager -- switch --flake "path:.#${PROFILE}"
 
 echo ""
 echo "==> Done! Log out and back in (or run 'source ~/.bashrc') to pick up changes."
