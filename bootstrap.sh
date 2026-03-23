@@ -42,6 +42,8 @@ fi
 
 # ── 2b. Harden proot (bwrap unavailable on machines without sudo) ─────
 export PROOT_NO_SECCOMP=1
+# Enable verbose nix-portable output to diagnose failures
+export NP_DEBUG=1
 
 # ── 3. Create profile directory (nix-portable doesn't create it) ───────
 mkdir -p "$HOME/.local/state/nix/profiles"
@@ -53,7 +55,16 @@ mkdir -p "$HOME/.local/bin"
 ln -sf "$NIX_PORTABLE" "$HOME/.local/bin/nix"
 export PATH="$HOME/.local/bin:$PATH"
 
-# ── 5. Apply home-manager configuration ────────────────────────────────
+# ── 5. Smoke-test nix-portable before the real build ──────────────────
+echo "==> Testing nix-portable (nix --version)..."
+if ! "$NIX_PORTABLE" nix --version; then
+  echo "FATAL: nix-portable cannot execute 'nix --version'."
+  echo "  Runtime detected: ${NP_RUNTIME:-auto}"
+  echo "  Try: NP_RUNTIME=proot bash bootstrap.sh"
+  exit 1
+fi
+
+# ── 6. Apply home-manager configuration ────────────────────────────────
 echo "==> Running home-manager switch (this may take a while on first run)..."
 # Use path:. to avoid git+file:// fetching (proot can't stat store copies)
 "$NIX_PORTABLE" nix run home-manager -- switch --flake "path:.#${PROFILE}"
