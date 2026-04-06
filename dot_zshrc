@@ -85,7 +85,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting poetry)
 
 source $ZSH/oh-my-zsh.sh
 
-alias nvim="~/nvim.appimage"
+# nvim is now on PATH via Nix
 
 # User configuration
 
